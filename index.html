@@ -1,15 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Git Course & Git Flow</title>
+    <title>تطبيق Todo</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Git Course & Git Flow</h1>
-    <p>Welcome to the Git Course! In this course, we will cover the basics of Git, a powerful version control system that helps developers manage their code and collaborate with others. We will also explore Git Flow, a branching model that provides a structured workflow for managing feature development, releases, and hotfixes.</p>
-    <h3>Git Basics</h3>
-    <p>Git allows you to track changes in your code, collaborate with other developers, and manage different versions of your project. Some of the key concepts in Git include:</p>
+    <div class="todo-app">
+        <header class="app-header">
+            <div>
+                <h1>تطبيق Todo</h1>
+                <p>سجل مهامك اليومية واحفظها في المتصفح باستخدام localStorage.</p>
+            </div>
+        </header>
+
+        <form id="todo-form" class="todo-form">
+            <input id="todo-input" type="text" placeholder="أضف مهمة جديدة..." autocomplete="off">
+            <button type="submit">إضافة</button>
+        </form>
+
+        <div class="todo-controls">
+            <button id="clear-all" type="button">مسح الكل</button>
+        </div>
+
+        <ul id="todo-list" class="todo-list"></ul>
+        <div id="pagination" class="pagination"></div>
+        <p id="empty-state" class="empty-state">لا توجد مهام حالياً. أضف المهمة الأولى!</p>
+    </div>
 
     <script src="js/script.js"></script>
 </body>
