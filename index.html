@@ -3,49 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق Todo</title>
+    <title>تطبيق Todo - الصفحة الرئيسية</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div id="auth-section" class="auth-section">
-        <div class="auth-card">
-            <h1 id="auth-title">تسجيل الدخول</h1>
-            <p class="auth-description">إدارة مهامك الخاصة بعد تسجيل الدخول.</p>
-            <form id="auth-form" class="auth-form">
-                <input id="auth-username" type="text" placeholder="اسم المستخدم" autocomplete="username">
-                <input id="auth-password" type="password" placeholder="كلمة المرور" autocomplete="current-password">
-                <button id="auth-submit" type="submit">دخول</button>
-            </form>
-            <p class="auth-footer">
-                <span id="auth-toggle-text">ليس لديك حساب؟</span>
-                <button id="auth-toggle" type="button">إنشاء حساب</button>
-            </p>
-        </div>
-    </div>
-
-    <div id="todo-app" class="todo-app hidden">
-        <header class="app-header">
-            <div>
-                <h1>تطبيق Todo</h1>
-                <p id="welcome-message">سجل مهامك اليومية واحفظها في المتصفح باستخدام localStorage.</p>
+    <div class="landing-page">
+        <header class="landing-header">
+            <div class="landing-brand">
+                <p class="eyebrow">تطبيق Todo</p>
+                <h1>نظم مهامك اليومية بسهولة</h1>
+                <p class="landing-intro">ادخل إلى تطبيق قوائم المهام الذي يضمن حماية المهام لكل مستخدم وحفظ البيانات محلياً.</p>
             </div>
-            <button id="logout-btn" type="button" class="logout-btn">تسجيل خروج</button>
+            <a class="landing-link" href="app.html">ابدأ الآن</a>
         </header>
 
-        <form id="todo-form" class="todo-form">
-            <input id="todo-input" type="text" placeholder="أضف مهمة جديدة..." autocomplete="off">
-            <button type="submit">إضافة</button>
-        </form>
+        <section class="hero">
+            <h2>مهامك، طريقتك.</h2>
+            <p>أنشئ، حرر، وحذف المهام مع تجربة مبسطة تماماً. سجّل حسابك اليوم وابدأ بتنظيم يومك من المتصفح مباشرة.</p>
+            <a class="cta-button" href="app.html">افتح التطبيق</a>
+        </section>
 
-        <div class="todo-controls">
-            <button id="clear-all" type="button">مسح الكل</button>
-        </div>
+        <section class="features">
+            <article class="feature">
+                <h3>تسجيل دخول وتسجيل</h3>
+                <p>أنشئ حساباً خاصاً بك لحفظ المهام بشكل منفصل وآمن.</p>
+            </article>
+            <article class="feature">
+                <h3>حفظ محلي</h3>
+                <p>كل مهمة محفوظة على جهازك في المتصفح بدون الحاجة لخادم خارجي.</p>
+            </article>
+            <article class="feature">
+                <h3>واجهة سهلة</h3>
+                <p>إدارة المهام أصبحت أسرع بفضل أزرار واضحة وخيارات بحثسريعة.</p>
+            </article>
+        </section>
 
-        <ul id="todo-list" class="todo-list"></ul>
-        <div id="pagination" class="pagination"></div>
-        <p id="empty-state" class="empty-state">لا توجد مهام حالياً. أضف المهمة الأولى!</p>
+        <footer class="landing-footer">
+            <p>قم ببناء روتينك اليومي وابدأ تنظيم المهام بشكل أفضل.</p>
+        </footer>
     </div>
-
-    <script src="js/script.js"></script>
 </body>
 </html>
