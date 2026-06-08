@@ -7,12 +7,29 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="todo-app">
+    <div id="auth-section" class="auth-section">
+        <div class="auth-card">
+            <h1 id="auth-title">تسجيل الدخول</h1>
+            <p class="auth-description">إدارة مهامك الخاصة بعد تسجيل الدخول.</p>
+            <form id="auth-form" class="auth-form">
+                <input id="auth-username" type="text" placeholder="اسم المستخدم" autocomplete="username">
+                <input id="auth-password" type="password" placeholder="كلمة المرور" autocomplete="current-password">
+                <button id="auth-submit" type="submit">دخول</button>
+            </form>
+            <p class="auth-footer">
+                <span id="auth-toggle-text">ليس لديك حساب؟</span>
+                <button id="auth-toggle" type="button">إنشاء حساب</button>
+            </p>
+        </div>
+    </div>
+
+    <div id="todo-app" class="todo-app hidden">
         <header class="app-header">
             <div>
                 <h1>تطبيق Todo</h1>
-                <p>سجل مهامك اليومية واحفظها في المتصفح باستخدام localStorage.</p>
+                <p id="welcome-message">سجل مهامك اليومية واحفظها في المتصفح باستخدام localStorage.</p>
             </div>
+            <button id="logout-btn" type="button" class="logout-btn">تسجيل خروج</button>
         </header>
 
         <form id="todo-form" class="todo-form">

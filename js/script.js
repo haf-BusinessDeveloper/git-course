@@ -1,22 +1,93 @@
+const authSection = document.getElementById('auth-section');
+const authForm = document.getElementById('auth-form');
+const authUsername = document.getElementById('auth-username');
+const authPassword = document.getElementById('auth-password');
+const authToggle = document.getElementById('auth-toggle');
+const authTitle = document.getElementById('auth-title');
+const authSubmitBtn = document.getElementById('auth-submit');
+const authToggleText = document.getElementById('auth-toggle-text');
+const todoApp = document.getElementById('todo-app');
 const todoForm = document.getElementById('todo-form');
 const todoInput = document.getElementById('todo-input');
 const todoList = document.getElementById('todo-list');
 const clearAllBtn = document.getElementById('clear-all');
 const emptyState = document.getElementById('empty-state');
 const paginationContainer = document.getElementById('pagination');
+const welcomeMessage = document.getElementById('welcome-message');
+const logoutBtn = document.getElementById('logout-btn');
+
+const USERS_KEY = 'simple_todo_app_users';
+const SESSION_KEY = 'simple_todo_app_session';
 const STORAGE_KEY = 'simple_todo_app_items';
 const ITEMS_PER_PAGE = 5;
 
 let todos = [];
 let currentPage = 1;
+let currentUser = null;
+let authMode = 'login';
+
+function getStoredUsers() {
+    const users = localStorage.getItem(USERS_KEY);
+    return users ? JSON.parse(users) : {};
+}
+
+function saveUsers(users) {
+    localStorage.setItem(USERS_KEY, JSON.stringify(users));
+}
+
+function getTodoStorageKey() {
+    return `${STORAGE_KEY}_${currentUser}`;
+}
+
+function getSessionUser() {
+    return localStorage.getItem(SESSION_KEY);
+}
+
+function setSessionUser(username) {
+    currentUser = username;
+    localStorage.setItem(SESSION_KEY, username);
+}
+
+function clearSession() {
+    currentUser = null;
+    localStorage.removeItem(SESSION_KEY);
+}
 
 function loadTodos() {
-    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!currentUser) {
+        todos = [];
+        return;
+    }
+
+    const saved = localStorage.getItem(getTodoStorageKey());
     todos = saved ? JSON.parse(saved) : [];
 }
 
 function saveTodos() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+    if (!currentUser) return;
+    localStorage.setItem(getTodoStorageKey(), JSON.stringify(todos));
+}
+
+function showAuth() {
+    authSection.classList.remove('hidden');
+    todoApp.classList.add('hidden');
+    updateAuthMode(authMode);
+    authForm.reset();
+    authUsername.focus();
+}
+
+function showTodoApp() {
+    authSection.classList.add('hidden');
+    todoApp.classList.remove('hidden');
+    welcomeMessage.textContent = `مرحبا ${currentUser}، هذه قائمة مهامك.`;
+}
+
+function updateAuthMode(mode) {
+    authMode = mode;
+    authTitle.textContent = mode === 'login' ? 'تسجيل الدخول' : 'إنشاء حساب';
+    authSubmitBtn.textContent = mode === 'login' ? 'دخول' : 'تسجيل';
+    authToggleText.textContent = mode === 'login' ? 'ليس لديك حساب؟' : 'لديك حساب بالفعل؟';
+    authToggle.textContent = mode === 'login' ? 'إنشاء حساب' : 'تسجيل دخول';
 }
 
 function renderTodos() {
@@ -97,7 +168,7 @@ function renderTodos() {
         item.appendChild(content);
         item.appendChild(actions);
 
-            todoList.appendChild(item);
+        todoList.appendChild(item);
     });
 
     renderPagination(totalPages);
@@ -214,10 +285,71 @@ function clearAllTodos() {
     renderTodos();
 }
 
-function init() {
+function authenticateUser(event) {
+    event.preventDefault();
+
+    const username = authUsername.value.trim();
+    const password = authPassword.value;
+
+    if (!username || !password) {
+        alert('يرجى إدخال اسم مستخدم وكلمة مرور صالحين.');
+        return;
+    }
+
+    const users = getStoredUsers();
+
+    if (authMode === 'login') {
+        if (!users[username] || users[username] !== password) {
+            alert('اسم المستخدم أو كلمة المرور غير صحيحة.');
+            return;
+        }
+
+        setSessionUser(username);
+        loadTodos();
+        renderTodos();
+        showTodoApp();
+        return;
+    }
+
+    if (users[username]) {
+        alert('اسم المستخدم موجود مسبقاً. اختر اسمًا مختلفًا.');
+        return;
+    }
+
+    users[username] = password;
+    saveUsers(users);
+    setSessionUser(username);
     loadTodos();
     renderTodos();
+    showTodoApp();
 }
+
+function handleLogout() {
+    clearSession();
+    todos = [];
+    currentPage = 1;
+    renderTodos();
+    showAuth();
+}
+
+function init() {
+    const savedUser = getSessionUser();
+
+    if (savedUser) {
+        setSessionUser(savedUser);
+        loadTodos();
+        renderTodos();
+        showTodoApp();
+        return;
+    }
+
+    showAuth();
+}
+
+authForm.addEventListener('submit', authenticateUser);
+authToggle.addEventListener('click', () => {
+    updateAuthMode(authMode === 'login' ? 'register' : 'login');
+});
 
 todoForm.addEventListener('submit', event => {
     event.preventDefault();
@@ -227,5 +359,6 @@ todoForm.addEventListener('submit', event => {
 });
 
 clearAllBtn.addEventListener('click', clearAllTodos);
+logoutBtn.addEventListener('click', handleLogout);
 
 window.addEventListener('DOMContentLoaded', init);
