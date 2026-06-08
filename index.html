@@ -14,16 +14,31 @@
                 <h1>نظم مهامك اليومية بسهولة</h1>
                 <p class="landing-intro">ادخل إلى تطبيق قوائم المهام الذي يضمن حماية المهام لكل مستخدم وحفظ البيانات محلياً.</p>
             </div>
-            <a class="landing-link" href="app.html">ابدأ الآن</a>
+            <div class="landing-actions">
+                <button id="nav-toggle" class="nav-toggle" aria-label="فتح القائمة">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <nav id="nav-links" class="nav-links">
+                    <a class="nav-link" href="#features">المميزات</a>
+                    <a class="nav-link" href="#pricing">الأسعار</a>
+                    <a class="nav-link nav-primary" href="app.html">ابدأ الآن</a>
+                </nav>
+            </div>
         </header>
 
         <section class="hero">
-            <h2>مهامك، طريقتك.</h2>
-            <p>أنشئ، حرر، وحذف المهام مع تجربة مبسطة تماماً. سجّل حسابك اليوم وابدأ بتنظيم يومك من المتصفح مباشرة.</p>
-            <a class="cta-button" href="app.html">افتح التطبيق</a>
+            <div>
+                <h2>مهامك، طريقتك.</h2>
+                <p>أنشئ، حرر، واحذف المهام مع تجربة مبسطة تماماً. سجّل حسابك اليوم وابدأ بتنظيم يومك من المتصفح مباشرة.</p>
+            </div>
+            <div class="hero-actions">
+                <a class="cta-button" href="app.html">افتح التطبيق</a>
+            </div>
         </section>
 
-        <section class="features">
+        <section id="features" class="features">
             <article class="feature">
                 <h3>تسجيل دخول وتسجيل</h3>
                 <p>أنشئ حساباً خاصاً بك لحفظ المهام بشكل منفصل وآمن.</p>
@@ -34,11 +49,11 @@
             </article>
             <article class="feature">
                 <h3>واجهة سهلة</h3>
-                <p>إدارة المهام أصبحت أسرع بفضل أزرار واضحة وخيارات بحثسريعة.</p>
+                <p>إدارة المهام أصبحت أسرع بفضل أزرار واضحة وتجربة مستخدم مريحة.</p>
             </article>
         </section>
 
-        <section class="pricing">
+        <section id="pricing" class="pricing">
             <div class="pricing-header">
                 <p class="eyebrow">الأسعار</p>
                 <h2>اختر خطة تناسب جدولك</h2>
@@ -93,5 +108,13 @@
             </div>
         </footer>
     </div>
+
+    <script>
+        const navToggle = document.getElementById('nav-toggle');
+        const navLinks = document.getElementById('nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+    </script>
 </body>
 </html>
